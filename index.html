@@ -1,10 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>kkopttarr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Pacifico|Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        font-family: "Varela Round", sans-serif;
+        background: radial-gradient(
+          ellipse at bottom,
+          #1b2735 0%,
+          #090a0f 100%
+        );
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        position: relative;
+      }
+      #stars,
+      #stars2,
+      #stars3 {
+        width: 1px;
+        height: 1px;
+        background: transparent;
+        box-shadow: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+      }
+      #stars {
+        transform-origin: 0% 0%;
+        animation: shine 50s infinite linear;
+      }
+      #stars2 {
+        transform-origin: 100% 0%;
+        animation: shine 20s infinite linear;
+      }
+      #stars3 {
+        transform-origin: 0% 100%;
+        animation: shine 200s infinite linear;
+      }
+      @keyframes shine {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      h1 {
+        font-family: "Pacifico", cursive;
+        font-size: 4rem;
+        color: azure;
+      }
+      button {
+        position: absolute; /* Make the position of the button relative to the body */
+        top: 15px; /* Position the button to the top left corner */
+        left: 15px; /* Position the button to the top left corner */
+        font-family: "Varela Round", sans-serif;
+        background-color: #9ec3f0;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 30px;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.4s ease;
+      }
+      button:hover {
+        background-color: #b2f2ff;
+      }
+    </style>
+    <title>Fun Mooncake</title>
   </head>
   <body>
-    <h1>Hi,Mooncake!</h1>
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+    <div class="container">
+      <h1 id="greeting">Hi, Mooncake!</h1>
+    </div>
+    <!-- Move the button outside of the container to position it at the top left corner -->
+    <button onclick="changeGreeting()">Hi, Mooncake!</button>
+    <script>
+      const greetings = [
+        "番茄小猪，嘟噜嘟噜！",
+        "人各有志",
+        "生于忧患，死于安乐",
+        "睡不了一点",
+        "有怪莫怪",
+        "你有多想我",
+        "喝点小酒",
+      ];
+      let shownGreetings = [];
+
+      function changeGreeting() {
+        // If all greetings have been displayed, reset the shownGreetings array.
+        if (shownGreetings.length === greetings.length) {
+          shownGreetings = [];
+        }
+
+        let randomGreeting = "";
+        do {
+          // Generate a random greeting.
+          randomGreeting =
+            greetings[Math.floor(Math.random() * greetings.length)];
+          // If this greeting has been displayed before, keep searching for a new one.
+        } while (shownGreetings.includes(randomGreeting));
+
+        // Add this new greeting to the shownGreetings array.
+        shownGreetings.push(randomGreeting);
+        document.getElementById("greeting").textContent = randomGreeting;
+      }
+    </script>
   </body>
 </html>
