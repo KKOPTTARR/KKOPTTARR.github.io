@@ -168,38 +168,10 @@
       Image
     </button>
     <button class="bottomLeft" onclick="changeBackgroundColor()">Color</button>
-
+    <script src="config.js"></script>
     <script>
-      const greetings = [
-        "Hi, Mooncake!",
-        "番茄小猪，嘟噜嘟噜！",
-        "人各有志",
-        "生于忧患，死于安乐",
-        "睡不了一点",
-        "有怪莫怪",
-        "你有多想我",
-        "喝点小酒",
-        "有点拉肚子战士",
-        "但是肯德基我可以吃上百元",
-        "快问快答",
-        "太妹驾到",
-        "拴Q",
-        "sim",
-        "啵妞啵妞",
-        "啊咕妞咕妞",
-        "打不嘘",
-        "不可能的喔",
-        "想吃日料",
-        "我真的超能睡",
-        "Dream Master",
-        "We all know the truth",
-        "吾乃纯爱战士",
-        "你就用这鸡碎甘多八卦来回应我的爱？！",
-        "别太幽默",
-      ];
-
+      const greetings = window.greetings;
       let shownGreetings = ["Hi, Mooncake!"];
-
       function changeGreeting() {
         if (shownGreetings.length === greetings.length) {
           shownGreetings = [];
