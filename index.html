@@ -63,8 +63,7 @@
       <h1 id="greeting">Hi, Mooncake!</h1>
     </div>
     <!-- Move the buttons outside of the container to position them at the top corners -->
-    <button class="topLeft" onclick="changeGreeting()">Hi, Mooncake!</button>
-    <!-- Change to type button not to trigger form submit action -->
+    <button class="topLeft" onclick="changeGreeting()">wisdom</button>
     <input
       type="file"
       id="imageInput"
@@ -80,6 +79,7 @@
     </button>
     <script>
       const greetings = [
+        "Hi, Mooncake!",
         "番茄小猪，嘟噜嘟噜！",
         "人各有志",
         "生于忧患，死于安乐",
@@ -88,6 +88,7 @@
         "你有多想我",
         "喝点小酒",
       ];
+
       let shownGreetings = [];
 
       function changeGreeting() {
