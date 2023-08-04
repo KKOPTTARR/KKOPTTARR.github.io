@@ -22,9 +22,9 @@
         justify-content: center;
         min-height: 100vh;
         position: relative;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
+        background-color: #dadde6;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96' width='24' height='24'%3E%3Cpath fill='%239C92AC' d='M13 6l-1.928 2.536-2.536-1.928-3.536 6 2.536 1.929-1.928 2.536-6-3.536 1.929-2.536L1 14l-3.536-6L0 16l1.928-.536L0 14l1.929-.536L0 13l2.537-.071-1.928-2.536L0 6l3.536 6L6 8l6 .536zm17-5l4 .536-.536 3.536H36l2.536-.071-.535-4-4 .071h5l-.536-4L36-.964l4 .071-.536 4H36L35-.964l4 .072-.536 4h-5zm5 17h4.536V40H36v4.536H32v-5l20 .072s4-.965 4-4v-16c0-3.071-4-4-4-4zm6 17l-2.536-1.928L28 56h9v3h11v-5l-.535-.072zM40 36V20h16l-.072 16zm16-20H40l-.072 3.536L36 16h20zm9 .072v15.928L56 33v7h11zM56 17l11 .071v3.536H56z'/%3E%3C/svg%3E");
+        background-repeat: repeat;
       }
       h1 {
         font-family: "Pacifico", cursive;
@@ -57,6 +57,19 @@
       }
     </style>
     <title>Fun Mooncake</title>
+    <script>
+      function setBackgroundImage(imgUrl) {
+        document.body.style.backgroundImage = `url(${imgUrl})`;
+      }
+
+      function generateRandomPattern() {
+        const pattern = new Patternfly.Pattern(24, "#DADDE6", "#9C92AC");
+        return pattern.generateDataUrl();
+      }
+
+      const randomPattern = generateRandomPattern();
+      setBackgroundImage(randomPattern);
+    </script>
   </head>
   <body>
     <div class="container">
@@ -75,7 +88,7 @@
       class="topRight"
       onclick="document.getElementById('imageInput').click()"
     >
-      Image
+      Upload Image
     </button>
     <script>
       const greetings = [
@@ -89,11 +102,11 @@
         "喝点小酒",
       ];
 
-      let shownGreetings = [];
+      let shownGreetings = ["Hi, Mooncake!"];
 
       function changeGreeting() {
-        if (shownGreetings.length === greetings.length) {
-          shownGreetings = [];
+        if (shownGreetings.length === greetings.length + 1) {
+          shownGreetings = ["Hi, Mooncake!"];
         }
 
         let randomGreeting = "";
