@@ -30,6 +30,7 @@
         color: azure;
         z-index: 1;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
+        animation: colorchange 3s infinite; /* Add this line */
       }
       button {
         font-family: "Varela Round", sans-serif;
@@ -47,14 +48,14 @@
         background-color: #b2f2ff;
       }
       .topLeft {
-        position: absolute; /* Make the position of the button relative to the body */
-        top: 15px; /* Position the button to the top left corner */
-        left: 15px; /* Position the button to the top left corner */
+        position: absolute;
+        top: 15px;
+        left: 15px;
       }
       .topRight {
-        position: absolute; /* Make the position of the button relative to the body */
-        top: 15px; /* Position the button to the top right corner */
-        right: 15px; /* Position the button to the top right corner */
+        position: absolute;
+        top: 15px;
+        right: 15px;
       }
       .background-pattern {
         position: absolute;
@@ -68,22 +69,41 @@
         position: absolute;
         font-size: 16px;
       }
+
+      /* Add this keyframe for the color change animation */
+      @keyframes colorchange {
+        0% {
+          color: azure;
+        }
+        20% {
+          color: #9ec3f0;
+        }
+        40% {
+          color: #ffcbc1;
+        }
+        60% {
+          color: #c1ffd4;
+        }
+        80% {
+          color: #f5f794;
+        }
+        100% {
+          color: azure;
+        }
+      }
     </style>
     <title>Fun Mooncake</title>
     <script>
-      // Generate circles text for background pattern
       function generateCircles() {
         const circles = ["⚉", "⚇", "⬤", "◯", "◉"];
         return circles[Math.floor(Math.random() * circles.length)];
       }
 
-      // Generate triangles text for background pattern
       function generateTriangles() {
         const triangles = ["▷", "▵", "△", "▶", "▮"];
         return triangles[Math.floor(Math.random() * triangles.length)];
       }
 
-      // Generate squares text for background pattern
       function generateSquares() {
         const squares = ["■", "▮", "▩", "◼", "▤"];
         return squares[Math.floor(Math.random() * squares.length)];
@@ -92,6 +112,7 @@
       function createBackgroundPattern() {
         const pattern = document.createElement("div");
         pattern.classList.add("background-pattern");
+
         for (let i = 0; i < 150; i++) {
           const shapeFuncs = [
             generateCircles,
@@ -125,7 +146,6 @@
     <div class="container">
       <h1 id="greeting">Hi, Mooncake!</h1>
     </div>
-    <!-- Move the buttons outside of the container to position them at the top corners -->
     <button class="topLeft" onclick="changeGreeting()">wisdom</button>
     <input
       type="file"
@@ -137,6 +157,7 @@
     <button
       class="topRight"
       onclick="document.getElementById('imageInput').click()"
+      style="top: unset; bottom: 15px"
     >
       Image
     </button>
