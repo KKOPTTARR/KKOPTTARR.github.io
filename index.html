@@ -57,6 +57,12 @@
         top: 15px;
         right: 15px;
       }
+      .bottomLeft {
+        /* Add this class for positioning the change background color button */
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+      }
       .background-pattern {
         position: absolute;
         top: 0;
@@ -161,6 +167,8 @@
     >
       Image
     </button>
+    <button class="bottomLeft" onclick="changeBackgroundColor()">Color</button>
+
     <script>
       const greetings = [
         "Hi, Mooncake!",
@@ -209,6 +217,28 @@
         },
         false
       );
+
+      function changeBackgroundColor() {
+        const backgroundColors = [
+          "#dadde6",
+          "#ffc7c7",
+          "#c7fffd",
+          "#c7d3ff",
+          "#e6c7ff",
+          "#daffc7",
+        ];
+        let currentBackgroundColor = document.body.style.backgroundColor;
+
+        let newBackgroundColor = "";
+        do {
+          newBackgroundColor =
+            backgroundColors[
+              Math.floor(Math.random() * backgroundColors.length)
+            ];
+        } while (currentBackgroundColor === newBackgroundColor);
+
+        document.body.style.backgroundColor = newBackgroundColor;
+      }
     </script>
   </body>
 </html>
