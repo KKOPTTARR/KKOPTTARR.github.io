@@ -32,4 +32,6 @@ window.greetings = [
     "eat notning",
     "go back sleep",
     "我是不是很可爱",
+    "我蒂慈悲",
+    "我奥慈悲"
 ];
