@@ -122,46 +122,62 @@
     </style>
     <title>Fun Mooncake</title>
     <script>
-      function generateCircles() {
-        const circles = ["⚉", "⚇", "⬤", "◯", "◉"];
-        return circles[Math.floor(Math.random() * circles.length)];
+      function generateRandomShape() {
+        const shapes = ["circle", "triangle", "square"];
+        return shapes[Math.floor(Math.random() * shapes.length)];
       }
 
-      function generateSquares() {
-        const squares = ["■", "▮", "▩", "◼", "▤"];
-        return squares[Math.floor(Math.random() * squares.length)];
+      function generateRandomSize() {
+        return Math.random() * 20 + 10;
       }
 
-      function generateTriangles() {
-        const triangles = ["▷", "▵", "△", "▶", "▮"];
-        return triangles[Math.floor(Math.random() * triangles.length)];
+      function generateRandomColor() {
+        return `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
+          Math.random() * 255
+        }, 0.8)`;
       }
 
-      function createBackgroundPattern() {
-        const pattern = document.createElement("div");
-        pattern.classList.add("background-pattern");
+      function generateRandomPosition() {
+        return {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+        };
+      }
 
-        for (let i = 0; i < 150; i++) {
-          const shapeFuncs = [
-            generateCircles,
-            generateTriangles,
-            generateSquares,
-          ];
-          const shape =
-            shapeFuncs[Math.floor(Math.random() * shapeFuncs.length)]();
-          const posX = Math.floor(Math.random() * 100);
-          const posY = Math.floor(Math.random() * 100);
+      function generateRandomVelocity() {
+        return {
+          x: (Math.random() - 0.5) * 2,
+          y: (Math.random() - 0.5) * 2,
+        };
+      }
 
-          const span = document.createElement("span");
-          span.textContent = shape;
-          span.style.top = `${posY}%`;
-          span.style.left = `${posX}%`;
-          span.style.transform = `translate(-${posX}%, -${posY}%)`;
+      function generateRandomShapeParticle() {
+        const shape = generateRandomShape();
+        const size = generateRandomSize();
+        const color = generateRandomColor();
+        const position = generateRandomPosition();
+        const velocity = generateRandomVelocity();
+        return new Particle(
+          position.x,
+          position.y,
+          size,
+          color,
+          velocity,
+          shape
+        );
+      }
 
-          pattern.appendChild(span);
+      // Update Particle class to include shape property
+      function Particle(x, y, size, color, velocity, shape) {
+        // ... existing Particle constructor ...
+        this.shape = shape;
+      }
+
+      // Modify createParticles to generate shape particles
+      function createParticles() {
+        for (let i = 0; i < numParticles; i++) {
+          particles.push(generateRandomShapeParticle());
         }
-
-        return pattern;
       }
 
       window.addEventListener("DOMContentLoaded", () => {
@@ -231,18 +247,13 @@
       );
 
       function changeBackgroundColor() {
-        //十种不同颜色
         const backgroundColors = [
+          "#dadde6",
           "#ffc7c7",
           "#c7fffd",
           "#c7d3ff",
           "#e6c7ff",
           "#daffc7",
-          "#fff9c7",
-          "#c7ffe6",
-          "#ffc7e6",
-          "#c7e6ff",
-          "#e6ffc7",
         ];
         let currentBackgroundColor = document.body.style.backgroundColor;
 
@@ -271,8 +282,8 @@
         this.radius = radius;
         this.color = color;
         this.velocity = {
-          x: (Math.random() - 0.5) * 2,
-          y: (Math.random() - 0.5) * 2,
+          x: (Math.random() - 0.5) * 3,
+          y: (Math.random() - 0.5) * 3,
         };
       }
 
@@ -303,9 +314,9 @@
           const x = Math.random() * canvas.width;
           const y = Math.random() * canvas.height;
           const radius = Math.random() * 3 + 1;
-          const color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${
+          const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
             Math.random() * 255
-          })`;
+          }, 0.6)`;
           particles.push(new Particle(x, y, radius, color));
         }
       }
@@ -315,6 +326,20 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((particle) => particle.update());
       }
+
+      // Mouse interaction
+      canvas.addEventListener("mousemove", (event) => {
+        particles.forEach((particle) => {
+          const dx = event.clientX - particle.x;
+          const dy = event.clientY - particle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            particle.velocity.x = dx / 20;
+            particle.velocity.y = dy / 20;
+          }
+        });
+      });
 
       createParticles();
       animateParticles();
