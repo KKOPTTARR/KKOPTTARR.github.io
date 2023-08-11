@@ -76,26 +76,48 @@
         font-size: 16px;
       }
 
-      /* Add this keyframe for the color change animation */
+      /*十种颜色*/
       @keyframes colorchange {
         0% {
           color: azure;
         }
-        20% {
-          color: #9ec3f0;
+        10% {
+          color: #78aef1;
         }
-        40% {
+        20% {
           color: #ffcbc1;
         }
-        60% {
+        30% {
           color: #c1ffd4;
         }
-        80% {
+        40% {
           color: #f5f794;
         }
-        100% {
-          color: azure;
+        50% {
+          color: #f7c5ff;
         }
+        60% {
+          color: #fa8c67;
+        }
+        70% {
+          color: #bceef8;
+        }
+        80% {
+          color: #8a8a6c;
+        }
+        90% {
+          color: #fa13c0;
+        }
+        100% {
+          color: #0d8807;
+        }
+      }
+
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
       }
     </style>
     <title>Fun Mooncake</title>
@@ -105,14 +127,14 @@
         return circles[Math.floor(Math.random() * circles.length)];
       }
 
-      function generateTriangles() {
-        const triangles = ["▷", "▵", "△", "▶", "▮"];
-        return triangles[Math.floor(Math.random() * triangles.length)];
-      }
-
       function generateSquares() {
         const squares = ["■", "▮", "▩", "◼", "▤"];
         return squares[Math.floor(Math.random() * squares.length)];
+      }
+
+      function generateTriangles() {
+        const triangles = ["▷", "▵", "△", "▶", "▮"];
+        return triangles[Math.floor(Math.random() * triangles.length)];
       }
 
       function createBackgroundPattern() {
@@ -168,6 +190,7 @@
       Image
     </button>
     <button class="bottomLeft" onclick="changeBackgroundColor()">Color</button>
+    <canvas id="backgroundCanvas"></canvas>
     <script src="config.js"></script>
     <script>
       const greetings = window.greetings;
@@ -208,13 +231,18 @@
       );
 
       function changeBackgroundColor() {
+        //十种不同颜色
         const backgroundColors = [
-          "#dadde6",
           "#ffc7c7",
           "#c7fffd",
           "#c7d3ff",
           "#e6c7ff",
           "#daffc7",
+          "#fff9c7",
+          "#c7ffe6",
+          "#ffc7e6",
+          "#c7e6ff",
+          "#e6ffc7",
         ];
         let currentBackgroundColor = document.body.style.backgroundColor;
 
@@ -228,6 +256,68 @@
 
         document.body.style.backgroundColor = newBackgroundColor;
       }
+
+      const canvas = document.getElementById("backgroundCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const numParticles = 150;
+
+      function Particle(x, y, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+        this.velocity = {
+          x: (Math.random() - 0.5) * 2,
+          y: (Math.random() - 0.5) * 2,
+        };
+      }
+
+      Particle.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      };
+
+      Particle.prototype.update = function () {
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+
+        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+          this.velocity.x = -this.velocity.x;
+        }
+
+        if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+          this.velocity.y = -this.velocity.y;
+        }
+
+        this.draw();
+      };
+
+      function createParticles() {
+        for (let i = 0; i < numParticles; i++) {
+          const x = Math.random() * canvas.width;
+          const y = Math.random() * canvas.height;
+          const radius = Math.random() * 3 + 1;
+          const color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${
+            Math.random() * 255
+          })`;
+          particles.push(new Particle(x, y, radius, color));
+        }
+      }
+
+      function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle) => particle.update());
+      }
+
+      createParticles();
+      animateParticles();
     </script>
   </body>
 </html>
