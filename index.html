@@ -212,7 +212,7 @@
       canvas.height = window.innerHeight;
 
       const particles = [];
-      const numParticles = 150;
+      const numParticles = 300;
 
       function Particle(x, y, radius, color) {
         this.x = x;
@@ -284,6 +284,17 @@
             particle.velocity.y = dy / 20;
           }
         });
+      });
+
+      canvas.addEventListener("click", (event) => {
+        const x = event.clientX;
+        const y = event.clientY;
+        const radius = Math.random() * 3 + 1;
+        const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
+          Math.random() * 255
+        }, 0.6)`;
+
+        particles.push(new Particle(x, y, radius, color));
       });
 
       createParticles();
