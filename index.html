@@ -24,6 +24,9 @@
         position: relative;
         background: #dadde6;
       }
+      body {
+        transition: background-color 2s ease; /* Add this line */
+      }
       h1 {
         font-family: "Pacifico", cursive;
         font-size: 4rem;
@@ -76,7 +79,6 @@
         font-size: 16px;
       }
 
-      /*十种颜色*/
       @keyframes colorchange {
         0% {
           color: azure;
@@ -231,17 +233,24 @@
       };
 
       Particle.prototype.update = function () {
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-
+        // 当粒子碰到边界时，使其反弹并缩放
         if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
           this.velocity.x = -this.velocity.x;
+          this.radius -= 0.5;
+          if (this.radius < 1) this.radius = Math.random() * 3 + 1;
         }
 
         if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
           this.velocity.y = -this.velocity.y;
+          this.radius -= 0.5;
+          if (this.radius < 1) this.radius = Math.random() * 3 + 1;
         }
 
+        // 更新粒子位置
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+
+        // 绘制粒子
         this.draw();
       };
 
