@@ -49,7 +49,7 @@
       }
       h1 {
         font-family: "Pacifico", cursive;
-        font-size: 4rem;
+        font-size: 5rem;
         color: azure;
         z-index: 1;
         text-shadow: 2px 2px rgba(0, 0, 0, 0.1);
@@ -160,18 +160,22 @@
     <script>
       const greetings = window.greetings;
       let shownGreetings = ["Hi, Mooncake!"];
-      function changeGreeting() {
-        if (shownGreetings.length === greetings.length) {
-          shownGreetings = [];
-        }
 
+      // 更新问候语
+      function changeGreeting() {
         let randomGreeting = "";
+
         do {
           randomGreeting =
             greetings[Math.floor(Math.random() * greetings.length)];
         } while (shownGreetings.includes(randomGreeting));
 
-        shownGreetings.push(randomGreeting);
+        if (shownGreetings.length === greetings.length) {
+          shownGreetings = [];
+        } else {
+          shownGreetings.push(randomGreeting);
+        }
+
         document.getElementById("greeting").textContent = randomGreeting;
 
         const uploadedImage = sessionStorage.getItem("uploadedImage");
@@ -180,7 +184,7 @@
         }
       }
 
-      // To handle uploaded image files
+      // 处理上传的图片文件
       document.getElementById("imageInput").addEventListener(
         "change",
         (e) => {
@@ -190,7 +194,7 @@
             document.body.style.backgroundImage = `url(${event.target.result})`;
           };
           reader.readAsDataURL(e.target.files[0]);
-          e.target.value = null; // reset the input value
+          e.target.value = ""; // 重置输入值
         },
         false
       );
@@ -222,46 +226,42 @@
       };
 
       Particle.prototype.update = function () {
-        // 当粒子碰到边界时，使其反弹并缩放
-        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
-          this.velocity.x = -this.velocity.x;
-          this.radius -= 0.5;
-          if (this.radius < 1) this.radius = Math.random() * 3 + 1;
-        }
-
-        if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
-          this.velocity.y = -this.velocity.y;
-          this.radius -= 0.5;
-          if (this.radius < 1) this.radius = Math.random() * 3 + 1;
-        }
-
-        // 更新粒子位置
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
-
-        // 绘制粒子
+        // 更新粒子位置、速度和绘制粒子
+        this.x +=
+          this.x + this.radius > canvas.width || this.x - this.radius < 0
+            ? -this.velocity.x
+            : this.velocity.x;
+        this.y +=
+          this.y + this.radius > canvas.height || this.y - this.radius < 0
+            ? -this.velocity.y
+            : this.velocity.y;
         this.draw();
       };
 
+      // 创建粒子属性并初始化粒子
       function createParticles() {
         for (let i = 0; i < numParticles; i++) {
-          const x = Math.random() * canvas.width;
-          const y = Math.random() * canvas.height;
-          const radius = Math.random() * 3 + 1;
-          const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
-            Math.random() * 255
-          }, 0.6)`;
-          particles.push(new Particle(x, y, radius, color));
+          particles.push(
+            new Particle(
+              Math.random() * canvas.width,
+              Math.random() * canvas.height,
+              Math.random() * 3 + 1,
+              `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
+                Math.random() * 255
+              }, 0.6)`
+            )
+          );
         }
       }
 
+      // 更新粒子并调用动画帧
       function animateParticles() {
         requestAnimationFrame(animateParticles);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         particles.forEach((particle) => particle.update());
       }
 
-      // Mouse interaction
+      // 鼠标交互
       canvas.addEventListener("mousemove", (event) => {
         particles.forEach((particle) => {
           const dx = event.clientX - particle.x;
@@ -276,14 +276,16 @@
       });
 
       canvas.addEventListener("click", (event) => {
-        const x = event.clientX;
-        const y = event.clientY;
-        const radius = Math.random() * 3 + 1;
-        const color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
-          Math.random() * 255
-        }, 0.6)`;
-
-        particles.push(new Particle(x, y, radius, color));
+        particles.push(
+          new Particle(
+            event.clientX,
+            event.clientY,
+            Math.random() * 3 + 1,
+            `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${
+              Math.random() * 255
+            }, 0.6)`
+          )
+        );
       });
 
       createParticles();
