@@ -52,18 +52,6 @@
         background-size: 600% 600%;
         animation: gradientAnimation 10s ease infinite;
       }
-
-      @keyframes gradientAnimation {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
       h1 {
         font-family: "Pacifico", cursive;
         font-size: 4rem;
@@ -82,7 +70,7 @@
         border: none;
         border-radius: 50px;
         padding: 10px 20px;
-        color: rgb(247, 234, 234);
+        color: rgb(119, 84, 84);
         font-size: 1.2rem;
         cursor: pointer;
         transition: all 0.4s ease;
@@ -90,7 +78,7 @@
         animation: blinkAnimation 1.5s infinite;
       }
       button:hover {
-        background-color: #00a2dc;
+        background-color: #10b3ef;
       }
       .topLeft {
         position: absolute;
@@ -127,6 +115,18 @@
         }
         50% {
           opacity: 0.5;
+        }
+      }
+
+      @keyframes gradientAnimation {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
         }
       }
 
