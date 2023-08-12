@@ -28,7 +28,6 @@
         transition: background-color 3s ease; /* Add this line */
       }
       body {
-        /* ... */
         background: linear-gradient(
           135deg,
           #e91e63,
@@ -49,8 +48,8 @@
           #607d8b,
           #e91e63
         );
-        background-size: 600% 600%;
-        animation: gradientAnimation 10s ease infinite;
+        background-size: cover; /* 图像完全覆盖背景，保持纵横比 */
+        animation: gradientAnimation 10s linear infinite;
       }
       h1 {
         font-family: "Pacifico", cursive;
@@ -79,6 +78,8 @@
       }
       button:hover {
         background-color: #10b3ef;
+        transform: translateY(-5px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
       .topLeft {
         position: absolute;
