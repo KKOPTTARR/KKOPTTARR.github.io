@@ -29,8 +29,6 @@ window.greetings = [
     "今天是我们在一起第几天？",
     "birthday coming",
     "减肥减肥",
-    "eat notning",
-    "go back sleep",
     "我是不是很可爱",
     "我蒂慈悲",
     "我奥慈悲",
@@ -57,5 +55,6 @@ window.greetings = [
     "十个人实在是太吵了",
     "吃不了一点",
     "实在是太幼稚了！",
-    "胆小如鼠"
+    "胆小如鼠",
+    "回笼"
 ]
