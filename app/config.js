@@ -63,5 +63,9 @@ window.greetings = [
     "胖宝宝胖宝宝胖宝宝",
     "哈基米哈基米哈基米",
     "bing baba dobidobi",
-    "我整个蓬头垢面"
+    "我整个蓬头垢面",
+    "我以为穿短裙",
+    "call me零食master",
+    "我就是爱吃零食",
+
 ]
